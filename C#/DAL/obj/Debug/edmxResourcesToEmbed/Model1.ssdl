@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ClubCardsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Buyings">
+    <Key>
+      <PropertyRef Name="_id" />
+    </Key>
+    <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClubCardId" Type="int" />
+    <Property Name="BuyDate" Type="date" Nullable="false" />
+    <Property Name="Sum" Type="money" />
+  </EntityType>
+  <EntityType Name="ClubCards">
+    <Key>
+      <PropertyRef Name="_id" />
+    </Key>
+    <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="EnterpCardId" Type="int" />
+    <Property Name="StatusPriseForNew" Type="bit" />
+    <Property Name="StatusPriseForBirthDay" Type="bit" />
+    <Property Name="Points" Type="int" />
+    <Property Name="BuyDate" Type="date" Nullable="false" />
+    <Property Name="ExpireDate" Type="date" Nullable="false" />
+    <Property Name="AppLoteryId" Type="int" />
+    <Property Name="Level" Type="int" Nullable="false" />
+    <Property Name="Payment" Type="bit" />
+    <Property Name="Issue" Type="bit" />
+    <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="_id" />
+    </Key>
+    <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="EnterpCards">
+    <Key>
+      <PropertyRef Name="_id" />
+    </Key>
+    <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cost" Type="money" Nullable="false" />
+    <Property Name="CountPoints" Type="int" />
+    <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EnterpId" Type="int" />
+    <Property Name="Payment" Type="bit" />
+    <Property Name="Type" Type="varchar" MaxLength="20" />
+    <Property Name="Duration" Type="int" />
+    <Property Name="FileName" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Enterprises">
+    <Key>
+      <PropertyRef Name="_id" />
+    </Key>
+    <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Url" Type="varchar" MaxLength="200" />
+    <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Lotery">
+    <Key>
+      <PropertyRef Name="_id" />
+    </Key>
+    <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EnterpCardId" Type="int" />
+    <Property Name="LoteryType" Type="varchar" MaxLength="20" />
+    <Property Name="Sum" Type="int" />
+    <Property Name="SumType" Type="varchar" MaxLength="1" />
+    <Property Name="Num1" Type="int" />
+    <Property Name="Num2" Type="int" />
+    <Property Name="Addition" Type="varchar" MaxLength="50" />
+    <Property Name="Expiration" Type="int" />
+    <Property Name="Type" Type="int" />
+    <Property Name="ExpireDate" Type="date" />
+  </EntityType>
+  <EntityType Name="SendMail">
+    <Key>
+      <PropertyRef Name="_id" />
+    </Key>
+    <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GetterId" Type="int" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="Key" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="SendDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="_id" />
+    </Key>
+    <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tz" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="Level" Type="int" />
+    <Property Name="BirthDate" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Buyings__ClubCar__45BE5BA9">
+    <End Role="ClubCards" Type="Self.ClubCards" Multiplicity="0..1" />
+    <End Role="Buyings" Type="Self.Buyings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClubCards">
+        <PropertyRef Name="_id" />
+      </Principal>
+      <Dependent Role="Buyings">
+        <PropertyRef Name="ClubCardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClubCards__AppLo__40F9A68C">
+    <End Role="Lotery" Type="Self.Lotery" Multiplicity="0..1" />
+    <End Role="ClubCards" Type="Self.ClubCards" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lotery">
+        <PropertyRef Name="_id" />
+      </Principal>
+      <Dependent Role="ClubCards">
+        <PropertyRef Name="AppLoteryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClubCards__Enter__40058253">
+    <End Role="EnterpCards" Type="Self.EnterpCards" Multiplicity="0..1" />
+    <End Role="ClubCards" Type="Self.ClubCards" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EnterpCards">
+        <PropertyRef Name="_id" />
+      </Principal>
+      <Dependent Role="ClubCards">
+        <PropertyRef Name="EnterpCardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClubCards__UserI__3F115E1A">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="ClubCards" Type="Self.ClubCards" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="_id" />
+      </Principal>
+      <Dependent Role="ClubCards">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EnterpCar__Enter__160F4887">
+    <End Role="Enterprises" Type="Self.Enterprises" Multiplicity="0..1" />
+    <End Role="EnterpCards" Type="Self.EnterpCards" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Enterprises">
+        <PropertyRef Name="_id" />
+      </Principal>
+      <Dependent Role="EnterpCards">
+        <PropertyRef Name="EnterpId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Lotery__EnterpCa__3C34F16F">
+    <End Role="EnterpCards" Type="Self.EnterpCards" Multiplicity="0..1" />
+    <End Role="Lotery" Type="Self.Lotery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EnterpCards">
+        <PropertyRef Name="_id" />
+      </Principal>
+      <Dependent Role="Lotery">
+        <PropertyRef Name="EnterpCardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="selectAllEnterpCards" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="selectCardsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="ClubCardsModelStoreContainer">
+    <EntitySet Name="Buyings" EntityType="Self.Buyings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClubCards" EntityType="Self.ClubCards" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EnterpCards" EntityType="Self.EnterpCards" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Enterprises" EntityType="Self.Enterprises" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lotery" EntityType="Self.Lotery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SendMail" EntityType="Self.SendMail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Buyings__ClubCar__45BE5BA9" Association="Self.FK__Buyings__ClubCar__45BE5BA9">
+      <End Role="ClubCards" EntitySet="ClubCards" />
+      <End Role="Buyings" EntitySet="Buyings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClubCards__AppLo__40F9A68C" Association="Self.FK__ClubCards__AppLo__40F9A68C">
+      <End Role="Lotery" EntitySet="Lotery" />
+      <End Role="ClubCards" EntitySet="ClubCards" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClubCards__Enter__40058253" Association="Self.FK__ClubCards__Enter__40058253">
+      <End Role="EnterpCards" EntitySet="EnterpCards" />
+      <End Role="ClubCards" EntitySet="ClubCards" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClubCards__UserI__3F115E1A" Association="Self.FK__ClubCards__UserI__3F115E1A">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ClubCards" EntitySet="ClubCards" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EnterpCar__Enter__160F4887" Association="Self.FK__EnterpCar__Enter__160F4887">
+      <End Role="Enterprises" EntitySet="Enterprises" />
+      <End Role="EnterpCards" EntitySet="EnterpCards" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Lotery__EnterpCa__3C34F16F" Association="Self.FK__Lotery__EnterpCa__3C34F16F">
+      <End Role="EnterpCards" EntitySet="EnterpCards" />
+      <End Role="Lotery" EntitySet="Lotery" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

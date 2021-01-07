@@ -1,0 +1,750 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ClubCardsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Buyings">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClubCardId" Type="int" />
+          <Property Name="BuyDate" Type="date" Nullable="false" />
+          <Property Name="Sum" Type="money" />
+        </EntityType>
+        <EntityType Name="ClubCards">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="EnterpCardId" Type="int" />
+          <Property Name="StatusPriseForNew" Type="bit" />
+          <Property Name="StatusPriseForBirthDay" Type="bit" />
+          <Property Name="Points" Type="int" />
+          <Property Name="BuyDate" Type="date" Nullable="false" />
+          <Property Name="ExpireDate" Type="date" Nullable="false" />
+          <Property Name="AppLoteryId" Type="int" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="Payment" Type="bit" />
+          <Property Name="Issue" Type="bit" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="EnterpCards">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cost" Type="money" Nullable="false" />
+          <Property Name="CountPoints" Type="int" />
+          <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EnterpId" Type="int" />
+          <Property Name="Payment" Type="bit" />
+          <Property Name="Type" Type="varchar" MaxLength="20" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="FileName" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Enterprises">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="200" />
+          <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Lotery">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnterpCardId" Type="int" />
+          <Property Name="LoteryType" Type="varchar" MaxLength="20" />
+          <Property Name="Sum" Type="int" />
+          <Property Name="SumType" Type="varchar" MaxLength="1" />
+          <Property Name="Num1" Type="int" />
+          <Property Name="Num2" Type="int" />
+          <Property Name="Addition" Type="varchar" MaxLength="50" />
+          <Property Name="Expiration" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="ExpireDate" Type="date" />
+        </EntityType>
+        <EntityType Name="SendMail">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GetterId" Type="int" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Key" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SendDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tz" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Level" Type="int" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Buyings__ClubCar__45BE5BA9">
+          <End Role="ClubCards" Type="Self.ClubCards" Multiplicity="0..1" />
+          <End Role="Buyings" Type="Self.Buyings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClubCards">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="Buyings">
+              <PropertyRef Name="ClubCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ClubCards__AppLo__40F9A68C">
+          <End Role="Lotery" Type="Self.Lotery" Multiplicity="0..1" />
+          <End Role="ClubCards" Type="Self.ClubCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lotery">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="ClubCards">
+              <PropertyRef Name="AppLoteryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ClubCards__Enter__40058253">
+          <End Role="EnterpCards" Type="Self.EnterpCards" Multiplicity="0..1" />
+          <End Role="ClubCards" Type="Self.ClubCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnterpCards">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="ClubCards">
+              <PropertyRef Name="EnterpCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ClubCards__UserI__3F115E1A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ClubCards" Type="Self.ClubCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="ClubCards">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EnterpCar__Enter__160F4887">
+          <End Role="Enterprises" Type="Self.Enterprises" Multiplicity="0..1" />
+          <End Role="EnterpCards" Type="Self.EnterpCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enterprises">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="EnterpCards">
+              <PropertyRef Name="EnterpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lotery__EnterpCa__3C34F16F">
+          <End Role="EnterpCards" Type="Self.EnterpCards" Multiplicity="0..1" />
+          <End Role="Lotery" Type="Self.Lotery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnterpCards">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="Lotery">
+              <PropertyRef Name="EnterpCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="selectAllEnterpCards" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="selectCardsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ClubCardsModelStoreContainer">
+          <EntitySet Name="Buyings" EntityType="Self.Buyings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClubCards" EntityType="Self.ClubCards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnterpCards" EntityType="Self.EnterpCards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enterprises" EntityType="Self.Enterprises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lotery" EntityType="Self.Lotery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SendMail" EntityType="Self.SendMail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Buyings__ClubCar__45BE5BA9" Association="Self.FK__Buyings__ClubCar__45BE5BA9">
+            <End Role="ClubCards" EntitySet="ClubCards" />
+            <End Role="Buyings" EntitySet="Buyings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ClubCards__AppLo__40F9A68C" Association="Self.FK__ClubCards__AppLo__40F9A68C">
+            <End Role="Lotery" EntitySet="Lotery" />
+            <End Role="ClubCards" EntitySet="ClubCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ClubCards__Enter__40058253" Association="Self.FK__ClubCards__Enter__40058253">
+            <End Role="EnterpCards" EntitySet="EnterpCards" />
+            <End Role="ClubCards" EntitySet="ClubCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ClubCards__UserI__3F115E1A" Association="Self.FK__ClubCards__UserI__3F115E1A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ClubCards" EntitySet="ClubCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EnterpCar__Enter__160F4887" Association="Self.FK__EnterpCar__Enter__160F4887">
+            <End Role="Enterprises" EntitySet="Enterprises" />
+            <End Role="EnterpCards" EntitySet="EnterpCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lotery__EnterpCa__3C34F16F" Association="Self.FK__Lotery__EnterpCa__3C34F16F">
+            <End Role="EnterpCards" EntitySet="EnterpCards" />
+            <End Role="Lotery" EntitySet="Lotery" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClubCardsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ClubCardsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buyings" EntityType="ClubCardsModel.Buyings" />
+          <EntitySet Name="ClubCards" EntityType="ClubCardsModel.ClubCards" />
+          <EntitySet Name="Contact" EntityType="ClubCardsModel.Contact" />
+          <EntitySet Name="Enterprises" EntityType="ClubCardsModel.Enterprises" />
+          <EntitySet Name="SendMail" EntityType="ClubCardsModel.SendMail" />
+          <EntitySet Name="Users" EntityType="ClubCardsModel.Users" />
+          <AssociationSet Name="FK__Buyings__ClubCar__45BE5BA9" Association="ClubCardsModel.FK__Buyings__ClubCar__45BE5BA9">
+            <End Role="ClubCards" EntitySet="ClubCards" />
+            <End Role="Buyings" EntitySet="Buyings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ClubCards__UserI__3F115E1A" Association="ClubCardsModel.FK__ClubCards__UserI__3F115E1A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ClubCards" EntitySet="ClubCards" />
+          </AssociationSet>
+          <EntitySet Name="Lotery" EntityType="ClubCardsModel.Lotery" />
+          <AssociationSet Name="FK__ClubCards__AppLo__40F9A68C" Association="ClubCardsModel.FK__ClubCards__AppLo__40F9A68C">
+            <End Role="Lotery" EntitySet="Lotery" />
+            <End Role="ClubCards" EntitySet="ClubCards" />
+          </AssociationSet>
+          <FunctionImport Name="selectAllEnterpCards" ReturnType="Collection(ClubCardsModel.selectAllEnterpCards_Result4)" />
+          <EntitySet Name="EnterpCards" EntityType="ClubCardsModel.EnterpCards" />
+          <AssociationSet Name="FK__ClubCards__Enter__40058253" Association="ClubCardsModel.FK__ClubCards__Enter__40058253">
+            <End Role="EnterpCards" EntitySet="EnterpCards" />
+            <End Role="ClubCards" EntitySet="ClubCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EnterpCar__Enter__160F4887" Association="ClubCardsModel.FK__EnterpCar__Enter__160F4887">
+            <End Role="Enterprises" EntitySet="Enterprises" />
+            <End Role="EnterpCards" EntitySet="EnterpCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lotery__EnterpCa__3C34F16F" Association="ClubCardsModel.FK__Lotery__EnterpCa__3C34F16F">
+            <End Role="EnterpCards" EntitySet="EnterpCards" />
+            <End Role="Lotery" EntitySet="Lotery" />
+          </AssociationSet>
+          <FunctionImport Name="selectCardsForUser" ReturnType="Collection(ClubCardsModel.selectCardsForUser_Result1)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          </EntityContainer>
+        <ComplexType Name="selectCardsForUser_Result">
+          <Property Type="Int32" Name="ClubCard" Nullable="false" />
+          <Property Type="Int32" Name="EnterpCardId" Nullable="true" />
+          <Property Type="Int32" Name="Points" Nullable="true" />
+          <Property Type="DateTime" Name="ExpireDate" Nullable="false" />
+          <Property Type="Int32" Name="AppLoteryId" Nullable="true" />
+          <Property Type="Int32" Name="EnterpCard" Nullable="false" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="PriseForNewId" Nullable="true" />
+          <Property Type="Int32" Name="PriseForBirthDayId" Nullable="true" />
+          <Property Type="Int32" Name="PriseForClubId" Nullable="true" />
+          <Property Type="Int32" Name="EnterpId" Nullable="true" />
+          <Property Type="Binary" Name="Img" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="Enterprise" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="40" />
+          <Property Type="Boolean" Name="Active" Nullable="true" />
+          <Property Type="String" Name="Url" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="LoteryForNew" Nullable="false" />
+          <Property Type="Int32" Name="LoteryForNewSum" Nullable="true" />
+          <Property Type="Boolean" Name="LoteryForNewSumType" Nullable="true" />
+          <Property Type="Int32" Name="LoteryForNewNum1" Nullable="true" />
+          <Property Type="Int32" Name="LoteryForNewNum2" Nullable="true" />
+          <Property Type="String" Name="LoteryForNewAddition" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="LoteryForNewExpireDate" Nullable="false" />
+          <Property Type="Int32" Name="LoteryForNewTypeId" Nullable="true" />
+          <Property Type="Int32" Name="LoteryForClub" Nullable="false" />
+          <Property Type="Int32" Name="LoteryForClubSum" Nullable="true" />
+          <Property Type="Boolean" Name="LoteryForClubSumType" Nullable="true" />
+          <Property Type="Int32" Name="LoteryForClubNum1" Nullable="true" />
+          <Property Type="Int32" Name="LoteryForClubNum2" Nullable="true" />
+          <Property Type="String" Name="LoteryForClubAddition" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="LoteryForClubExpireDate" Nullable="false" />
+          <Property Type="Int32" Name="LoteryForClubTypeId" Nullable="true" />
+          <Property Type="Int32" Name="LoteryForBirthDay" Nullable="false" />
+          <Property Type="Int32" Name="LoteryForBirthDaySum" Nullable="true" />
+          <Property Type="Boolean" Name="LoteryForBirthDaySumType" Nullable="true" />
+          <Property Type="Int32" Name="LoteryForBirthDayNum1" Nullable="true" />
+          <Property Type="Int32" Name="LoteryForBirthDayNum2" Nullable="true" />
+          <Property Type="String" Name="LoteryForBirthDayAddition" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="LoteryForBirthDayExpireDate" Nullable="false" />
+          <Property Type="Int32" Name="LoteryForBirthDayTypeId" Nullable="true" />
+          <Property Type="Int32" Name="AppLotery" Nullable="false" />
+          <Property Type="Int32" Name="AppLoterySum" Nullable="true" />
+          <Property Type="Boolean" Name="AppLoterySumType" Nullable="true" />
+          <Property Type="Int32" Name="AppLoteryNum1" Nullable="true" />
+          <Property Type="Int32" Name="AppLoteryNum2" Nullable="true" />
+          <Property Type="String" Name="AppLoteryAddition" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="AppLoteryExpireDate" Nullable="false" />
+          <Property Type="Int32" Name="AppLoteryTypeId" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Buyings">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClubCardId" Type="Int32" />
+          <Property Name="BuyDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Sum" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="ClubCards" Relationship="ClubCardsModel.FK__Buyings__ClubCar__45BE5BA9" FromRole="Buyings" ToRole="ClubCards" />
+        </EntityType>
+        <EntityType Name="ClubCards">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="EnterpCardId" Type="Int32" />
+          <Property Name="StatusPriseForNew" Type="Boolean" />
+          <Property Name="StatusPriseForBirthDay" Type="Boolean" />
+          <Property Name="Points" Type="Int32" />
+          <Property Name="BuyDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AppLoteryId" Type="Int32" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="Payment" Type="Boolean" />
+          <Property Name="Issue" Type="Boolean" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Buyings" Relationship="ClubCardsModel.FK__Buyings__ClubCar__45BE5BA9" FromRole="ClubCards" ToRole="Buyings" />
+          <NavigationProperty Name="Users" Relationship="ClubCardsModel.FK__ClubCards__UserI__3F115E1A" FromRole="ClubCards" ToRole="Users" />
+          <NavigationProperty Name="Lotery" Relationship="ClubCardsModel.FK__ClubCards__AppLo__40F9A68C" FromRole="ClubCards" ToRole="Lotery" />
+          <NavigationProperty Name="EnterpCards" Relationship="ClubCardsModel.FK__ClubCards__Enter__40058253" FromRole="ClubCards" ToRole="EnterpCards" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Enterprises">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="EnterpCards" Relationship="ClubCardsModel.FK__EnterpCar__Enter__160F4887" FromRole="Enterprises" ToRole="EnterpCards" />
+        </EntityType>
+        <EntityType Name="SendMail">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GetterId" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Key" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SendDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tz" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ClubCards" Relationship="ClubCardsModel.FK__ClubCards__UserI__3F115E1A" FromRole="Users" ToRole="ClubCards" />
+        </EntityType>
+        <Association Name="FK__Buyings__ClubCar__45BE5BA9">
+          <End Type="ClubCardsModel.ClubCards" Role="ClubCards" Multiplicity="0..1" />
+          <End Type="ClubCardsModel.Buyings" Role="Buyings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClubCards">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="Buyings">
+              <PropertyRef Name="ClubCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ClubCards__UserI__3F115E1A">
+          <End Type="ClubCardsModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ClubCardsModel.ClubCards" Role="ClubCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="ClubCards">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="selectAllEnterpCards_Result">
+          <Property Type="Int32" Name="EnterpId" Nullable="true" />
+          <Property Type="String" Name="Img" Nullable="false" />
+          <Property Type="Int32" Name="C_id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Url" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="selectAllEnterpCards_Result1">
+          <Property Type="Int32" Name="C_id" Nullable="false" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="CountPoints" Nullable="true" />
+          <Property Type="String" Name="Img" Nullable="false" />
+          <Property Type="Int32" Name="EnterpId" Nullable="true" />
+          <Property Type="Boolean" Name="Payment" Nullable="true" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="C_id1" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Url" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="selectAllEnterpCards_Result2">
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="CardId" Nullable="false" />
+          <Property Type="Int32" Name="CountPoints" Nullable="true" />
+          <Property Type="String" Name="Img" Nullable="false" />
+          <Property Type="Int32" Name="EnterpId" Nullable="true" />
+          <Property Type="Boolean" Name="Payment" Nullable="true" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="C_id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Url" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <EntityType Name="Lotery">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnterpCardId" Type="Int32" />
+          <Property Name="LoteryType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Sum" Type="Int32" />
+          <Property Name="SumType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Num1" Type="Int32" />
+          <Property Name="Num2" Type="Int32" />
+          <Property Name="Addition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Expiration" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="ExpireDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ClubCards" Relationship="ClubCardsModel.FK__ClubCards__AppLo__40F9A68C" FromRole="Lotery" ToRole="ClubCards" />
+          <NavigationProperty Name="EnterpCards" Relationship="ClubCardsModel.FK__Lotery__EnterpCa__3C34F16F" FromRole="Lotery" ToRole="EnterpCards" />
+        </EntityType>
+        <Association Name="FK__ClubCards__AppLo__40F9A68C">
+          <End Type="ClubCardsModel.Lotery" Role="Lotery" Multiplicity="0..1" />
+          <End Type="ClubCardsModel.ClubCards" Role="ClubCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lotery">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="ClubCards">
+              <PropertyRef Name="AppLoteryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="selectAllEnterpCards_Result3">
+          <Property Type="Int32" Name="Duration" Nullable="true" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="CardId" Nullable="false" />
+          <Property Type="Int32" Name="CountPoints" Nullable="true" />
+          <Property Type="String" Name="Img" Nullable="false" />
+          <Property Type="Int32" Name="EnterpId" Nullable="true" />
+          <Property Type="Boolean" Name="Payment" Nullable="true" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="C_id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Url" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="selectAllEnterpCards_Result4">
+          <Property Type="Int32" Name="Duration" Nullable="true" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="CardId" Nullable="false" />
+          <Property Type="Int32" Name="CountPoints" Nullable="true" />
+          <Property Type="String" Name="Img" Nullable="false" />
+          <Property Type="Int32" Name="EnterpId" Nullable="true" />
+          <Property Type="Boolean" Name="Payment" Nullable="true" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="C_id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Url" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <EntityType Name="EnterpCards">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CountPoints" Type="Int32" />
+          <Property Name="Img" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnterpId" Type="Int32" />
+          <Property Name="Payment" Type="Boolean" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="FileName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClubCards" Relationship="ClubCardsModel.FK__ClubCards__Enter__40058253" FromRole="EnterpCards" ToRole="ClubCards" />
+          <NavigationProperty Name="Enterprises" Relationship="ClubCardsModel.FK__EnterpCar__Enter__160F4887" FromRole="EnterpCards" ToRole="Enterprises" />
+          <NavigationProperty Name="Lotery" Relationship="ClubCardsModel.FK__Lotery__EnterpCa__3C34F16F" FromRole="EnterpCards" ToRole="Lotery" />
+        </EntityType>
+        <Association Name="FK__ClubCards__Enter__40058253">
+          <End Type="ClubCardsModel.EnterpCards" Role="EnterpCards" Multiplicity="0..1" />
+          <End Type="ClubCardsModel.ClubCards" Role="ClubCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnterpCards">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="ClubCards">
+              <PropertyRef Name="EnterpCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EnterpCar__Enter__160F4887">
+          <End Type="ClubCardsModel.Enterprises" Role="Enterprises" Multiplicity="0..1" />
+          <End Type="ClubCardsModel.EnterpCards" Role="EnterpCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enterprises">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="EnterpCards">
+              <PropertyRef Name="EnterpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lotery__EnterpCa__3C34F16F">
+          <End Type="ClubCardsModel.EnterpCards" Role="EnterpCards" Multiplicity="0..1" />
+          <End Type="ClubCardsModel.Lotery" Role="Lotery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnterpCards">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="Lotery">
+              <PropertyRef Name="EnterpCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="selectCardsForUser_Result1">
+          <Property Type="Int32" Name="ClubCard" Nullable="false" />
+          <Property Type="Int32" Name="EnterpCardId" Nullable="true" />
+          <Property Type="Int32" Name="Points" Nullable="true" />
+          <Property Type="DateTime" Name="ExpireDate" Nullable="false" />
+          <Property Type="Int32" Name="AppLoteryId" Nullable="true" />
+          <Property Type="Int32" Name="EnterpCard" Nullable="false" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="EnterpId" Nullable="true" />
+          <Property Type="String" Name="Img" Nullable="false" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Duration" Nullable="true" />
+          <Property Type="Int32" Name="Enterprise" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="40" />
+          <Property Type="Boolean" Name="Active" Nullable="true" />
+          <Property Type="String" Name="Url" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClubCardsModelStoreContainer" CdmEntityContainer="ClubCardsEntities">
+          <EntitySetMapping Name="Buyings">
+            <EntityTypeMapping TypeName="ClubCardsModel.Buyings">
+              <MappingFragment StoreEntitySet="Buyings">
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+                <ScalarProperty Name="ClubCardId" ColumnName="ClubCardId" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClubCards">
+            <EntityTypeMapping TypeName="ClubCardsModel.ClubCards">
+              <MappingFragment StoreEntitySet="ClubCards">
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Issue" ColumnName="Issue" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="AppLoteryId" ColumnName="AppLoteryId" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="StatusPriseForBirthDay" ColumnName="StatusPriseForBirthDay" />
+                <ScalarProperty Name="StatusPriseForNew" ColumnName="StatusPriseForNew" />
+                <ScalarProperty Name="EnterpCardId" ColumnName="EnterpCardId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contact">
+            <EntityTypeMapping TypeName="ClubCardsModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enterprises">
+            <EntityTypeMapping TypeName="ClubCardsModel.Enterprises">
+              <MappingFragment StoreEntitySet="Enterprises">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SendMail">
+            <EntityTypeMapping TypeName="ClubCardsModel.SendMail">
+              <MappingFragment StoreEntitySet="SendMail">
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="GetterId" ColumnName="GetterId" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ClubCardsModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Tz" ColumnName="Tz" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lotery">
+            <EntityTypeMapping TypeName="ClubCardsModel.Lotery">
+              <MappingFragment StoreEntitySet="Lotery">
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+                <ScalarProperty Name="Addition" ColumnName="Addition" />
+                <ScalarProperty Name="Num2" ColumnName="Num2" />
+                <ScalarProperty Name="Num1" ColumnName="Num1" />
+                <ScalarProperty Name="SumType" ColumnName="SumType" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="LoteryType" ColumnName="LoteryType" />
+                <ScalarProperty Name="EnterpCardId" ColumnName="EnterpCardId" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="selectAllEnterpCards" FunctionName="ClubCardsModel.Store.selectAllEnterpCards">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ClubCardsModel.selectAllEnterpCards_Result4">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="CountPoints" ColumnName="CountPoints" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+                <ScalarProperty Name="EnterpId" ColumnName="EnterpId" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="EnterpCards">
+            <EntityTypeMapping TypeName="ClubCardsModel.EnterpCards">
+              <MappingFragment StoreEntitySet="EnterpCards">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="EnterpId" ColumnName="EnterpId" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+                <ScalarProperty Name="CountPoints" ColumnName="CountPoints" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="selectCardsForUser" FunctionName="ClubCardsModel.Store.selectCardsForUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ClubCardsModel.selectCardsForUser_Result1">
+                <ScalarProperty Name="ClubCard" ColumnName="ClubCard" />
+                <ScalarProperty Name="EnterpCardId" ColumnName="EnterpCardId" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="AppLoteryId" ColumnName="AppLoteryId" />
+                <ScalarProperty Name="EnterpCard" ColumnName="EnterpCard" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="EnterpId" ColumnName="EnterpId" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Enterprise" ColumnName="Enterprise" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
