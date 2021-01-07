@@ -1,0 +1,45 @@
+.wrapper{
+    background-color: #191a19;
+    min-height: 40vh;
+}
+#messageContact{
+    height: 4vh; 
+    color: red;
+    text-align: left ;
+}
+.msg{
+padding: 3%;
+border: solid 1px white;
+color: white;
+height: 120%;
+}
+.submit{
+    padding:1%;
+    font-size:16px;
+    box-shadow: 2px 4px 8px #888888;
+}
+.ui.label.info{
+    background-color: transparent;
+    display: block;
+    padding: 3%;
+    color: white;
+    width: 300;
+    min-width: 270;
+    font-size: 16px;
+}
+
+.teal.envelope.circular.inverted.icon.iconInfo,.teal.fax.circular.inverted.icon.iconInfo,.teal.phone.circular.inverted.icon.iconInfo{
+    box-shadow: 1px 2px 4px #888888;
+}
+.fifteen.wide.field.formButton>:first-child{
+padding: 1%;
+font-size: 16px;
+box-shadow: 2px 4px 8px #888888;
+}
+/* .four.wide.column.infoGroup{
+padding-bottom: 8%;
+padding-top: 8%;
+text-align: left;
+width: 250;
+min-width: 250;
+} */

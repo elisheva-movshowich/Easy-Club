@@ -1,0 +1,43 @@
+.columnForm{
+    border-radius: 10%;
+box-shadow: 5px 2px 1px -1px rgba(0, 0, 0, 0.2), 5px 5px 5px 5px rgba(0, 0, 0, 0.14), 5px 1px 7px 4px rgba(0, 0, 0, 0.12);
+}
+.ui.large.fluid.button {
+background-color: #00b5ad;
+color: white;
+}
+.black.user.circle.large.icon,.black.lock.large.icon{
+    margin-top: 1vh;
+}
+.ui.header{
+text-align: center;
+color: #00b5ad;
+}
+#message,#email_message{
+color: red;
+}
+#email_message{
+    margin-top: 1vh;
+}
+.msg{
+text-align: center;
+margin-top: 3vh;
+font-size: 40px;
+}
+.newPassword,.singUp{
+    color: #00b5ad;
+  
+}
+.newPassword{
+  cursor:pointer;
+}
+#newPassword{
+    color: red;
+}
+.ui.massive.message.emailMessage.emailMessage{
+text-align: center;
+position: absolute;
+margin-left: 10%;
+width: 80%;
+top: 30%;
+}

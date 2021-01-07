@@ -1,0 +1,10 @@
+export const selectUser="SELECT_USER";
+export const selectEnterprise="SELECT_ENTERPRISE";
+export const loading="LOADING";
+export const error="ERROR";
+export const message="MESSAGE";
+export const cleanUserState="CLEAN_USER_STATE";
+export const cleanEnterpriseState="CLEAN_ENTERPRISE_STATE";
+export const selectCards="SELECT_CARDS";
+export const selectAllCards="SELECT_ALL_CARDS"
+export const selectIndexedCard="SELECT_INDEXED_CARD"

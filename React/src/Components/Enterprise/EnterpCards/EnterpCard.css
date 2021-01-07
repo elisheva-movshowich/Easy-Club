@@ -1,0 +1,27 @@
+.item-group{
+    margin-left: 10vh;
+}
+.item.card-item{
+    margin-top:3vh !important;
+    width: 95%  !important;
+     margin-left: 3vw  !important;
+}
+.ui.small.image.image-item{
+    margin-left:30vw !important;
+    box-shadow:5px 10px 18px #888888 !important;
+    height:17vh !important;
+    width:12vw !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    border-radius: 20px !important;
+}
+.ui.items>.item>.image+[class*="middle aligned"].content.content-item{
+    margin-left:-20vw;
+    text-shadow: 3px 3px 3px #888888,5px 5px 7px #888888;
+}
+.ui.items>.item>.content>.header:not(.ui).header-item{
+    display: block;
+}
+i.circular.inverted.icon{
+    text-shadow: none;
+}

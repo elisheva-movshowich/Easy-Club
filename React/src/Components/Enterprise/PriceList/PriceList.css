@@ -1,0 +1,21 @@
+.ui.button.sidebutton:hover{
+    background-color: teal;
+}
+.wrap_pricelist{
+    top: 5vw;
+     position: fixed;
+     right:0px;
+      font-size: 20px;
+      z-index: 100;
+}
+.ui.button.sidebutton{
+     position: absolute;
+      right: 0px;
+      font-size:20px;
+       color: white;
+        background-color: #00b5ad;
+        top:30vh
+}
+.price-table-row{
+    height: 8vh;
+}

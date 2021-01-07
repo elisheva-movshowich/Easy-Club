@@ -1,0 +1,24 @@
+h1{
+  border-bottom: solid 2px rgb(0 181 173);
+  padding: 0.3%;
+  width: 400px;
+  margin-left:40%;
+  margin-top: 4vh;
+  text-shadow: 2px 2px 2px #888888,5px 5px 7px #888888;
+  }
+  .ui[class*="left labeled"].button>.button{
+    background-color:  #191a19;
+    color: white;
+  }
+  .ui.labeled.input>.label:not(.corner){
+    background-color:  #191a19;
+    color: white;
+  }
+  .ui.form .field .ui.input input, .ui.form .fields .field .ui.input input,.ui.form .field>.selection.dropdown
+  ,.ui.form textarea
+  {
+    border-color:#191a19;
+  }
+  #sumType{
+    border: solid 1px;
+  }
