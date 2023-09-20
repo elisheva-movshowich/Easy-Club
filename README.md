@@ -1,1 +1,1 @@
-"my_project_git"
+EasyClub project
